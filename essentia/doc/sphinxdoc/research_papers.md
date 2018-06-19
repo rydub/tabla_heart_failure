@@ -10,6 +10,8 @@ The list below highlights some of the academic studies using Essentia organized 
 
 ## Music classification
 
+- J. Kim, M. Won, X. Serra, and C. C. S. Liem, Transfer Learning of Artist Group Factors to Musical Genre Classification. In WWW '18 Companion Proceedings of the The Web Conference 2018, 2018.
+
 - D. Bogdanov, A. Porter, J. Urbano, and H. Schreiber. The MediaEval 2017 AcousticBrainz Genre Task: Content-based Music Genre Recognition from Multiple Sources. In MediaEval 2017 Multimedia Benchmark Workshop (MediaEval'17), 2017.
 
 - K. Koutini, A. Imenina, M. Dorfer,  A. R. Gruber, and M. Schedl.  MediaEval 2017 AcousticBrainz Genre Task: Multilayer Perceptron Approach. In MediaEval 2017 Multimedia Benchmark Workshop (MediaEval'17), 2017.
@@ -103,6 +105,8 @@ focused on weblogs. In 7th International Conference on Music Information Retriev
 - J. Buhmann, B. Moens, V. Lorenzoni, and M. Leman. Shifting the Musical Beat to Influence Running Cadence. In European Society for Cognitive Sciences Of Music (ESCOM'17), 2017.
 
 - J. Buhmann. Effects of music-based biofeedback on walking and running. PhD Thesis, Ghent University, Belgium, 2017.
+
+-  A. Xambó, G. Roma, A. Lerch, M. Barthet, G. Fazekas. Live Repurposing of Sounds: MIR Explorations with Personal and Crowdsourced Databases. In New Interfaces for Musical Expression (NIME'18), 2018.
 
 ## Sound indexing, music production, and intelligent audio processing
 

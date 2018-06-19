@@ -19,8 +19,9 @@ TAGLIB_VERSION=taglib-1.11.1
 FFTW_VERSION=fftw-3.3.2
 LIBSAMPLERATE_VERSION=libsamplerate-0.1.8
 LIBYAML_VERSION=yaml-0.1.5
+CHROMAPRINT_VERSION=1.4.3
 QT_SOURCE_URL=http://download.qt-project.org/official_releases/qt/4.8/4.8.6/qt-everywhere-opensource-src-4.8.6.tar.gz
-GAIA_VERSION=2.4.4
+GAIA_VERSION=2.4.5
 
 FFMPEG_AUDIO_FLAGS="
     --enable-avresample
@@ -44,6 +45,9 @@ FFMPEG_AUDIO_FLAGS="
 
     --enable-protocol=file
     --enable-protocol=pipe
+
+    --disable-zlib
+    --disable-bzlib
 
     --enable-demuxer=image2
     --enable-demuxer=aac
@@ -173,6 +177,18 @@ FFMPEG_AUDIO_FLAGS="
     --enable-parser=vorbis
     --enable-parser=vp3
     --enable-parser=vp8
+"
+
+FFMPEG_AUDIO_FLAGS_MUXERS="
+    --enable-muxer=wav
+    --enable-muxer=aiff
+    --enable-muxer=mp3
+    --enable-muxer=ogg
+    --enable-muxer=flac
+    --enable-encoder=pcm_s16le
+    --enable-encoder=pcm_s16be
+    --enable-encoder=vorbis
+    --enable-encoder=flac
 "
 
 # see http://www.fftw.org/install/windows.html

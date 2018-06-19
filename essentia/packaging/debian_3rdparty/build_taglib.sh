@@ -5,7 +5,9 @@ rm -rf tmp
 mkdir tmp
 cd tmp
 
-wget http://taglib.github.io/releases/$TAGLIB_VERSION.tar.gz
+echo "Building taglib $TAGLIB_VERSION"
+
+curl -SLO http://taglib.github.io/releases/$TAGLIB_VERSION.tar.gz
 tar -xf $TAGLIB_VERSION.tar.gz
 cd $TAGLIB_VERSION/
 
@@ -13,7 +15,7 @@ cmake \
     -D CMAKE_CXX_FLAGS="-fPIC" \
     -DCMAKE_INSTALL_PREFIX=$PREFIX \
     -DCMAKE_BUILD_TYPE=Release \
-    -DENABLE_STATIC=ON \
+    -DBUILD_SHARED_LIBS=OFF \
 	. 
 make
 make install
