@@ -5,3 +5,5 @@
 *.o
 tabla_nn_model
 *.wav
+/venv/**
+.idea
