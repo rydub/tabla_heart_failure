@@ -15,13 +15,8 @@ from scipy import signal
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import PCA
 
-#Neil, just make a few alterations to get this program online.
-#Sorry for the delay on this project. I tried to get essentia installed,
-#and I just figured that I could send you the part of the pipeline, and you
-#could link it to the other parts of the data pipeline.
-
 #get an iterable that iterates through all files.
-#all_files = #Neil. fill this in.
+#all_files = fill this in.
 
 #get an iterable of all the outcome variable. If you don't
 #want this column in the resulting dataframe, just leave it as none.
@@ -30,7 +25,7 @@ from sklearn.decomposition import PCA
 #this is a color dictionary, based on the label of the outcome you want to study
 #eg. if you want to look at sound type, create this dictionary:
 #color_dictionary = {'BS':'blue','PS':'red','TF':'green'}
-#color_dictionary = #Neil, fill this in.
+#color_dictionary = fill this in.
 
 sample_rate = 4000
 frame_length = 512
