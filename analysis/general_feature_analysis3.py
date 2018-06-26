@@ -1,7 +1,7 @@
 import numpy as np
 import scipy as sci
 import pandas as pd
-import csv
+import csv, sys
 import matplotlib.pyplot as plt
 import matplotlib.patches as mpatches
 from sklearn.preprocessing import StandardScaler
@@ -9,6 +9,8 @@ from sklearn.decomposition import PCA
 from sklearn.linear_model import LogisticRegression
 from scipy.cluster.vq import vq, kmeans, whiten
 from sklearn.neighbors import KNeighborsClassifier
+
+script_path = sys.path[0]
 
 ######THE FOLLOWING ARE DEFAULT SETTINGS FOR run_analysis()##########
 ps_audio_features = [
@@ -120,6 +122,7 @@ g1_params_paper = {
 #supports further statistical analyses for any data frame.
 #enter the data as a dataframe.
 #build models and put them in Analysis.models dictionary
+#@param data: 
 
 class Analysis():
 
@@ -317,8 +320,8 @@ class Analysis():
 #the distances from the centroid of each point?
 #let me know and I'll bake it in.
 #kmeans as a method of the class Analysis works, however.
-def run_analysis(file_in = '/Users/samuelzetumer/Desktop/tabla-master/features/features.csv',
-                path_out = '/Users/samuelzetumer/Desktop/tabla-master/analysis/',
+def run_analysis(file_in = script_path[:-8] + '/features/features.csv',
+                path_out = script_path + '/',
                 class_id = 'lung_disease',
                 n_comp_pca = 4,
                 k_neighbors = 5,
