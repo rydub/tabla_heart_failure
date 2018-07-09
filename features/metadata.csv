@@ -1,17 +1,4 @@
-Tabla ID,Study,Age,Gender,Ethnicity,"Height
-(cm)","Weight
-(kgs)","Thorax
-Circ (cm)","Smoking
-(packs/yr)","Temp
-(F)",BP,HR,RR,"SpO2
-(% RA)","SpO2
-@recording
-(% RA)","Peak Flow
-(L/min)",FEV1,"Chest
-XRay","BNP
-(pg/mL)","Presenting
-Symptom",Admitting Diagnosis,Pnuemonia,"Pleural
-Effusion",Rlvt. Comorbities,Misc Notes
+Tabla ID,Study,Age,Gender,Ethnicity,"Height(cm)","Weight(kgs)","ThoraxCirc (cm)","Smoking(packs/yr)","TempF)",BP,HR,RR,"SpO2(% RA)","SpO2@recording(% RA)","Peak Flow(L/min)",FEV1,"ChestXRay","BNP(pg/mL)","PresentingSymptom",Admitting Diagnosis,Pnuemonia,"PleuralEffusion",Rlvt. Comorbities,Misc Notes
 PNA001,PNA,32,F,?,170.2,82.6,?,?,,?,?,?,?,?,?,,NOT CLEAR,?,?,Pneumonia,LLL,NONE,Cystic Fibrosis,
 PNA002,PNA,72,M,?,?,85,119,?,100,111/51,106,16,95,?,?,,NOT CLEAR,?,?,Pneumonia,LLL,LEFT,None,PNA002_TF_RLL(pt unable to stop coughing)
 PNA003,PNA,,,,,,,,,,,26,,,,,,,,,,,,

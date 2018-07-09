@@ -3,36 +3,28 @@ import os
 import sys
 import pandas as pd
 import numpy as np
+# import re
 
 '''
-TODO:   - Change "Pneumonia Output" section
-        -
+TODO:   - Devise date/time processing method
+        - Remove "Pneumonia Output" section
+        - Remove wheezing etc. sections
 '''
 
 def process_metadata(patient_data_path, output_path):
-    """Data wrangler that turns clinician input into usable form"""
+    """Data wrangler that turns research coordinator input into usable form"""
     if not patient_data_path:
         print('missing patient data file paths')
         sys.exit(-1)
 
     patient_data = pd.read_csv(patient_data_path).as_matrix()
-
     DEFAULT_SMOKING_PACKS = 0
     DEFAULT_TEMP = 98.6
     DEFAULT_BP_SYSTOLIC = 130
     DEFAULT_BP_DIASTOLIC = 85
     DEFAULT_HR = 90
     DEFAULT_RR = 18
-
-    KNOWN_BAD_IDS = [
-        'PNA001',
-        'PNA002',
-        'PNA003',
-        'PNA004',
-        'PNA005',
-        'PNA006',
-        'PNA007',
-    ]
+    KNOWN_BAD_IDS = []
 
     def default_thorax_circ(gender):
         if gender == 'M':
@@ -47,18 +39,22 @@ def process_metadata(patient_data_path, output_path):
             return False
 
     def process_row(index):
+        """Main processing function for parent call"""
         row_data = patient_data[index, :]
         processed_row = np.array([])
 
         id = row_data[0]
+        # return [] if bad data, empty rows are ignored by parent
         if id in KNOWN_BAD_IDS:
             return processed_row
 
         processed_row = np.append(processed_row, id)
 
-        age = row_data[2]
-        processed_row = np.append(processed_row, age)
-
+        admission = row_data[1]
+        discharge = row_data[2]
+        term = None # NEEDS DATE/TIME PROCESSING
+        processed_row = np.append(processed_row, term)
+        
         gender = row_data[3]
         if gender != 'M' and gender != 'F':
             print 'Row %d: Bad gender: %s' % (index, gender)
@@ -148,7 +144,11 @@ def process_metadata(patient_data_path, output_path):
 
     [rows, cols] = patient_data.shape
 
-    headers = ['id', 'age', 'male', 'female', 'height', 'weight', 'thorax_circ', 'smoking_packs', 'temp', 'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02', 'peak_flow', 'sob', 'wheezing', 'lung_disease']
+    # Headers are unique to each metadata csv,
+    # size must agree with patient_data cols
+    headers = ['id', 'stay_length', 'age', 'male', 'female', 'height',
+     'weight', 'thorax_circ', 'smoking_packs', 'comorbities', 'bnp', 'temp',
+      'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow_1', 'peak_flow_2']
 
     output_data = np.array([])
     for row_index in range(2, rows):

@@ -5,10 +5,15 @@ from sklearn import preprocessing
 sys.path.append('./features')
 import stft
 import mfcc
-# import centroid
-import metadata
+import centroid
+import metadata_HF
 # sys.path.append('./essentia/src/python/essentia')
 
+"""
+TODO:   -
+"""
+
+# contains all subdirectories required for parsing
 study = 'HF'
 subdirectory = 'heart_failure'
 in_root = 'processed_data'
@@ -18,14 +23,13 @@ metadata_features_path = 'features/metadata_features_' + study + '.csv'
 full_features_path = 'features/features_' + study + '.csv'
 normalized_features_path = 'features/normalized_features_' + study + '.csv'
 
-# ED002 and ED004 are pneumothorax
-#bad_patient_ids = ["HA001", "HA002", "ED002", "ED004"]
+# Use this to exempt patient_ids that have bad data
 bad_patient_ids = []
+
 metadata_cols = []
 
-# Generate audio features
-
 def write_features(file, patient_id, patient_dir, create_header):
+    """Calculates features (MFCCs, centroid) for a patient recording, writes to file (.csv)"""
     headers = ['id']
     features = [patient_id]
 
@@ -47,6 +51,7 @@ def write_features(file, patient_id, patient_dir, create_header):
 
 
 def get_patient_ids(path, study):
+    """Returns a list of all ID's contained in the specified directory"""
     patient_ids = [file for file in os.listdir(path) if file.startswith(study)]
     patient_ids = [patient_id for patient_id in patient_ids if patient_id not in bad_patient_ids]
     patient_ids.sort()
@@ -55,17 +60,19 @@ def get_patient_ids(path, study):
 
 file = open(audio_features_path, "w")
 create_header=True
-for patient_id in get_patient_ids('%s/heart_failure' % in_root, study):
-    write_features(file, patient_id, '%s/heart_failure/%s' % (in_root, patient_id), create_header)
-    if create_header:
-        create_header=False
 
-# for patient_id in get_patient_ids('%s/ed' % in_root, 'ED'):
-#     write_features(file, patient_id, '%s/ed/%s' % (in_root, patient_id), create_header)
+# Iterate over recordings and write features to file
+for patient_id in get_patient_ids('{}/{}'.format(in_root, subdirectory), study):
+    records = '{}/{}/{}'.format(in_root, subdirectory, patient_id)
+    for record in [_ for _ in os.listdir(records)]:
+        write_features(file, record, '{}/{}'.format(records, record), create_header)
+        if create_header:
+            create_header=False
 
 # Process metadata
 metadata.process_metadata(metadata_path, metadata_features_path)
 
+'''
 # Merge audio and metadata features
 audio_features = pd.read_csv(audio_features_path)
 metadata_features = pd.read_csv(metadata_features_path)
@@ -79,3 +86,4 @@ all_features.to_csv(full_features_path, index=False)
 # min_max_scaler = preprocessing.MinMaxScaler()
 # normalized_features = pd.DataFrame(min_max_scaler.fit_transform(all_features))
 # normalized_features.to_csv(normalized_features_path, index=False, header=False)
+'''

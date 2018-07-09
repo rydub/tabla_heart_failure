@@ -368,6 +368,7 @@ def run_analysis(file_in = script_path[:-8] + '/features/features.csv',
     print 'neighbors: %d. Accuracy: %f' % (k_neighbors, knn_score)
     print ''
     return
+    ###################### CURRENT EXIT POINT ######################################
     #print knn_score
     #return
 
