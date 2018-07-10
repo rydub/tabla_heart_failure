@@ -1,5 +1,5 @@
-,,,,,,,,,,,,Admitted Vitals,,,,,,Discharge Vitals,
-Tabla ID,"Admission
+,,,,,,,,,,,,"Admitted Vitals",,,,,,"Discharge Vitals",
+"Tabla ID","Admission
 Date","Discharge 
 Date",Age,Gender,Ethnicity,"Height 
 (cm)","Historical
@@ -11,23 +11,23 @@ Circ (cm)","Smoking
 (% RA)","Peak Flow
 (L/min)","Peak Flow
 (L/min)",Notes
-HF001,"Jan 14, 2018","Jan 31, 2018",81,M,White,182.8,90.7,113,0,None,474,97.7,100/64,74,18,98%,245,n/a,enrolled 01/18/2018
-HF002,"Jan 19, 2018","Jan 23, 2018",86,M,Asian,162.5,59.24,111,20,None,3980,97.4,138/69,91,20,93%,105,190,enrolled 01/22/2018
-HF003,"Jan 25, 2018","Feb 10, 2018",64,M,White,182.8,95.2,126,10,COPD,594,98.1,116/60,67,26,89%,140,n/a,dropped out of study 1/31/18
-HF004,"Jan 27, 2018","Feb 1, 2018",55,M,Black or African American,182.8,77.1,99,none,None,,97.3,109/78,109,20,98%,500,n/a,V112I mutation familial transthyretin amyloid cardiomyopathy
-HF005,"Feb 7, 2018","Feb 20, 2018",54,M,Black or African American,180.3,84.1,104,6,None,1970,98.1,125/94,82,19,99%,235,n/a,active crack/cocaine use; dropped out of study 2/9/2018
-HF006,"Feb 19, 2018","Feb 22, 2018",43,M,Black or African American,182.8,138.8,138,12,None,1340,98.8,138/109,,20,97%,320,n/a,
-HF007,"Feb 28, 2018","Mar 1, 2018",69,M,White,174,66.5,96.5,20,None,3860,98.4,103/62,98,18,97%,115,n/a,
-HF007,"Mar 29, 2018","Apr 4, 2018",69,M,White,174,66.5,96.5,20,None,,97.5,100/58,101,21,96%,155,n/a,
-HF008,"Mar 9, 2018","Mar 13, 2018",55,M,Black or African American,187.9,77.1,91,14,None,2100,97.2,168/120,98,16,95%,180,n/a,cocaine and EtOH use disorder
-HF009,"Mar 12, 2018",,58,F,White,170.1,81.6,120,30,COPD,1678,97.4,98/57,108,20,98%,0,,"BNP from OSH (3/8), on 2L cannula; admitted to ICU 3/14-3/17; peak flow: 85 (3/23/18)"
-HF010,"Mar 22, 2018","Mar 30, 2018",49,M,White,185.4,147.7,130,0,None,501,97.7,170/80,83,20,98%,290,360,
-HF011,"Mar 26, 2018",,48,M,Hispanic or Latino,175.26,83.9,102,,None,282,97.9,99/71,89,16,99%,580,n/a,NICM; has ICD
-HF012,"Mar 31, 2018","Apr 3, 2018",43,M,Asian,157.48,61.8,90.5,15,None,,99.1,121/78,109,20,97%,125,n/a,
-HF013,"Apr 7, 2018","Apr 12, 2018",62,M,White,172.72,79.3,110,30-40,None,670,98.6,104/67,67,25,97%,625,610,
-HF014,"Apr 14, 2018","May 6, 2018",71,F,Asian,152.4,48.5,85,0,None,1090,97.9,110/61,74,16,95%,140,n/a,dropped out of study after 1 day
-HF015,"Apr 22, 2018","Apr 25, 2018",60,M,Black or African American,167.6,58.5,85.5,20,COPD,4110,98.1,186/130,102,16,98%,240,n/a,active cocaine user
-HF016,"Apr 23, 2018","Apr 25, 2018",52,M,?,wasnt sure,80.7,103.5,0,None,472,98.1,157/95,118,,96%,230,n/a,possible MS and recurrent leg cellulitis
-HF017,"Apr 28, 2018","May 5, 2018",83,M,Black or African American,190.5,130.6,128,45,None,551,98.6,150/80,71,31,100%,230,n/a,smoked cigars not cigarettes
-HF018,"Apr 26, 2018",,62,M,Hispanic or Latino,170.2,72.5,103,3,None,1600,97.4,137/72,89,16,100%,290,315,
-HF019,"May 8, 2018","May 12, 2018",68,M,Asian,170,68,89,0,None,3330,97.9,152/105,104,23,93%,210,n/a,
+HF001,2018/01/14,2018/01/31,81,M,White,182.8,90.7,113,0,n/a,474,97.7,100/64,74,18,0.98,245,n/a,"enrolled 01/18/2018"
+HF002,2018/01/19,2018/01/23,86,M,Asian,162.5,59.24,111,20,n/a,3980,97.4,138/69,91,20,0.93,105,190,"enrolled 01/22/2018"
+HF003,2018/01/25,2018/02/10,64,M,White,182.8,95.2,126,10,COPD,594,98.1,116/60,67,26,0.89,140,n/a,"dropped out of study 1/31/18"
+HF004,2018/01/27,2018/02/01,55,M,"Black or African American",182.8,77.1,99,none,n/a,,97.3,109/78,109,20,0.98,500,n/a,"V112I mutation familial transthyretin amyloid cardiomyopathy"
+HF005,2018/02/07,2018/02/20,54,M,"Black or African American",180.3,84.1,104,6,n/a,1970,98.1,125/94,82,19,0.99,235,n/a,"active crack/cocaine use; dropped out of study 2/9/2018"
+HF006,2018/02/19,2018/02/22,43,M,"Black or African American",182.8,138.8,138,12,n/a,1340,98.8,138/109,,20,0.97,320,n/a,
+HF007,2018/02/28,2018/03/01,69,M,White,174,66.5,96.5,20,n/a,3860,98.4,103/62,98,18,0.97,115,n/a,
+HF007,2018/03/29,2018/04/04,69,M,White,174,66.5,96.5,20,n/a,,97.5,100/58,101,21,0.96,155,n/a,
+HF008,2018/03/09,2018/03/13,55,M,"Black or African American",187.9,77.1,91,14,n/a,2100,97.2,168/120,98,16,0.95,180,n/a,"cocaine and EtOH use disorder"
+HF009,2018/03/12,,58,F,White,170.1,81.6,120,30,COPD,1678,97.4,98/57,108,20,0.98,0,,"BNP from OSH (3/8), on 2L cannula; admitted to ICU 3/14-3/17; peak flow: 85 (3/23/18)"
+HF010,2018/03/22,2018/03/30,49,M,White,185.4,147.7,130,0,n/a,501,97.7,170/80,83,20,0.98,290,360,
+HF011,2018/03/26,,48,M,"Hispanic or Latino",175.26,83.9,102,,n/a,282,97.9,99/71,89,16,0.99,580,n/a,"NICM; has ICD"
+HF012,2018/03/31,2018/04/03,43,M,Asian,157.48,61.8,90.5,15,n/a,,99.1,121/78,109,20,0.97,125,n/a,
+HF013,2018/04/07,2018/04/12,62,M,White,172.72,79.3,110,30-40,n/a,670,98.6,104/67,67,25,0.97,625,610,
+HF014,2018/04/14,2018/05/06,71,F,Asian,152.4,48.5,85,0,n/a,1090,97.9,110/61,74,16,0.95,140,n/a,"dropped out of study after 1 day"
+HF015,2018/04/22,2018/04/25,60,M,"Black or African American",167.6,58.5,85.5,20,COPD,4110,98.1,186/130,102,16,0.98,240,n/a,"active cocaine user"
+HF016,2018/04/23,2018/04/25,52,M,?,"wasnt sure",80.7,103.5,0,n/a,472,98.1,157/95,118,,0.96,230,n/a,"possible MS and recurrent leg cellulitis"
+HF017,2018/04/28,2018/05/05,83,M,"Black or African American",190.5,130.6,128,45,n/a,551,98.6,150/80,71,31,1,230,n/a,"smoked cigars not cigarettes"
+HF018,2018/04/26,,62,M,"Hispanic or Latino",170.2,72.5,103,3,n/a,1600,97.4,137/72,89,16,1,290,315,
+HF019,2018/05/08,2018/05/12,68,M,Asian,170,68,89,0,n/a,3330,97.9,152/105,104,23,0.93,210,n/a,

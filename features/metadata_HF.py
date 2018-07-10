@@ -24,6 +24,8 @@ def process_metadata(patient_data_path, output_path):
     DEFAULT_BP_DIASTOLIC = 85
     DEFAULT_HR = 90
     DEFAULT_RR = 18
+    DEFAULT_HEIGHT = 170
+    DEFAULT_BNP = 0
     KNOWN_BAD_IDS = []
 
     def default_thorax_circ(gender):
@@ -50,25 +52,40 @@ def process_metadata(patient_data_path, output_path):
 
         processed_row = np.append(processed_row, id)
 
-        admission = row_data[1]
-        discharge = row_data[2]
-        term = None # NEEDS DATE/TIME PROCESSING
-        processed_row = np.append(processed_row, term)
-        
-        gender = row_data[3]
+        # Process length of stay
+
+        # DOES NOT WORK
+        # admis_df = pd.DataFrame(np.array(row_data[1]))
+        # admis_df = pd.to_datetime(admis_df, format='%d/%b/%Y')
+        # disch_df = pd.DataFrame(np.array(row_data[2]))
+        # disch_df = pd.to_datetime(disch_df, format='%d/%b/%Y')
+        # term = (disch_df - admis_df).days
+        # processed_row = np.append(processed_row, term)
+        processed_row = np.append(processed_row, 1)
+
+        #process age
+        procesed_row = np.append(processed_row, row_data[3])
+
+        #process gender
+        gender = row_data[4]
         if gender != 'M' and gender != 'F':
             print 'Row %d: Bad gender: %s' % (index, gender)
             return np.array([])
         processed_row = np.append(processed_row, 1 if gender == 'M' else 0)
         processed_row = np.append(processed_row, 1 if gender == 'F' else 0)
 
-        height = row_data[5]
+        # process height
+        height = to_float(row_data[6])
+        if not isinstance(height, float):
+            height = DEFAULT_HEIGHT
         processed_row = np.append(processed_row, height)
 
-        weight = row_data[6]
+        # process weight
+        weight = row_data[7]
         processed_row = np.append(processed_row, weight)
 
-        thorax_circ = to_float(row_data[7])
+        #process thorax circumference
+        thorax_circ = to_float(row_data[8])
         if not isinstance(thorax_circ, float):
             print "USING DEFAULT thorax_circ"
             print thorax_circ
@@ -76,17 +93,32 @@ def process_metadata(patient_data_path, output_path):
             thorax_circ = default_thorax_circ(gender)
         processed_row = np.append(processed_row, thorax_circ)
 
-        smoking_packs = to_float(row_data[8])
+        # process smoking history
+        smoking_packs = to_float(row_data[9])
         if not isinstance(smoking_packs, float):
             smoking_packs = DEFAULT_SMOKING_PACKS
         processed_row = np.append(processed_row, smoking_packs)
 
-        temp = to_float(row_data[9])
+        # process comorbities
+        comorbities = 0
+        if row_data[10] != 'n/a':
+            comorbities = 1
+        processed_row = np.append(processed_row, comorbities)
+
+        #process BNP (metric which correlated with HF)
+        bnp = to_float(processed_row[11])
+        if not isinstance(bnp, float):
+            bnp = DEFAULT_BNP
+        processed_row = np.append(processed_row, bnp)
+
+        # process temperature
+        temp = to_float(row_data[12])
         if not isinstance(temp, float):
             temp = DEFAULT_TEMP
         processed_row = np.append(processed_row, temp)
 
-        bp = row_data[10] # 120/80
+        #process blood pressure
+        bp = row_data[13] # 120/80
         parts = bp.split('/')
         if len(parts) == 2:
             bp_systolic = to_float(parts[0])
@@ -100,45 +132,27 @@ def process_metadata(patient_data_path, output_path):
         processed_row = np.append(processed_row, bp_systolic)
         processed_row = np.append(processed_row, bp_diastolic)
 
-        hr = to_float(row_data[11])
+        # process heart rate
+        hr = to_float(row_data[14])
         if not isinstance(hr, float):
             hr = DEFAULT_HR
         processed_row = np.append(processed_row, hr)
 
-        rr = to_float(row_data[12])
+        # process respiratory rate
+        rr = to_float(row_data[15])
         if not isinstance(rr, float):
             rr = DEFAULT_RR
         processed_row = np.append(processed_row, rr)
 
-        spo02 = to_float(row_data[13])
+        # process oxygen saturation
+        spo02 = to_float(row_data[16])
         processed_row = np.append(processed_row, spo02)
 
-        # sp02_at_recording = row_data[14]
-
-        peak_flow = to_float(row_data[15])
+        # process peak flow 1
+        peak_flow = to_float(row_data[17])
         processed_row = np.append(processed_row, peak_flow)
 
-        # Dangerous to include this because there are no healthy people that
-        # wheeze or have shortness of breath
-        presenting_symptom = row_data[19]
-        sob = 0
-        wheezing = 0
-        if presenting_symptom == 'SOB and Wheezing':
-            sob = 1
-            wheezing = 1
-        elif presenting_symptom == 'SOB':
-            sob = 1
-        elif presenting_symptom == 'Wheezing':
-            wheezing = 1
-        processed_row = np.append(processed_row, sob)
-        processed_row = np.append(processed_row, wheezing)
-
-        #### PNEUMONIA OUTPUT ###
-        lung_disease = 1
-        diagnosis = row_data[20]
-        if diagnosis == 'Healthy' or diagnosis == 'None':
-            lung_disease = 0
-        processed_row = np.append(processed_row, lung_disease)
+        #second peak flow dataset is incomplete, excluding for now
 
         return processed_row
 
@@ -148,10 +162,10 @@ def process_metadata(patient_data_path, output_path):
     # size must agree with patient_data cols
     headers = ['id', 'stay_length', 'age', 'male', 'female', 'height',
      'weight', 'thorax_circ', 'smoking_packs', 'comorbities', 'bnp', 'temp',
-      'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow_1', 'peak_flow_2']
+      'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow_1']
 
     output_data = np.array([])
-    for row_index in range(2, rows):
+    for row_index in range(3, rows):
         next_row = process_row(row_index)
         if next_row.size != 0:
             if output_data.size == 0:

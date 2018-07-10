@@ -6,7 +6,7 @@ sys.path.append('./features')
 import stft
 import mfcc
 import centroid
-import metadata_HF
+import metadata_HF as metadata
 # sys.path.append('./essentia/src/python/essentia')
 
 """
@@ -16,6 +16,7 @@ TODO:   -
 # contains all subdirectories required for parsing
 study = 'HF'
 subdirectory = 'heart_failure'
+
 in_root = 'processed_data'
 audio_features_path = 'features/audio_features_' + study + '.csv'
 metadata_path = 'features/metadata_' + study + '.csv'
