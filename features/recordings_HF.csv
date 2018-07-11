@@ -1,9 +1,4 @@
-"Tabla ID","Date of
-Recordings","Weight
-(kgs)","Fluid 
-Output (L)","Temp
-(F)",BP,HR,RR,"SpO2
-(% RA)",Notes,Downloaded?,,
+"Tabla ID","Date ofRecordings","Weight(kgs)","Fluid Output (L)","Temp(F)",BP,HR,RR,"SpO2(% RA)",Notes,Downloaded?,,
 HF001_011818,2018/01/18,92.1,0.79,97.7,94/71,69,16,0.98,"on 1.5L of O2. had to redo PS recordings (under separate patient: HF001_011818_PS Redo)",Other,*issues,"did not say ""toy boat"""
 HF001_011918,2018/01/19,100,1.631,97.2,102/69,68,18,1,"on 3L of O2",Yes,,"did not say ""toy boat"""
 HF001_012218,2018/01/22,96.1,1.171,98.2,110/93,72,16,0.98,,Yes,,"did not say ""toy boat"""
