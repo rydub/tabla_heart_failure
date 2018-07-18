@@ -3,12 +3,9 @@ import os
 import sys
 import pandas as pd
 import numpy as np
-# import re
 
 '''
 TODO:   - Devise date/time processing method
-        - Remove "Pneumonia Output" section
-        - Remove wheezing etc. sections
 '''
 
 def process_metadata(patient_data_path, output_path):
@@ -45,13 +42,12 @@ def process_metadata(patient_data_path, output_path):
         row_data = patient_data[index, :]
         processed_row = np.array([])
 
-        id = row_data[0]
+        pat_id = row_data[0]
         # return [] if bad data, empty rows are ignored by parent
-        if id in KNOWN_BAD_IDS:
+        if pat_id in KNOWN_BAD_IDS:
             return processed_row
 
-        processed_row = np.append(processed_row, id)
-
+        processed_row = np.append(processed_row, pat_id)
         # Process length of stay
 
         # DOES NOT WORK
@@ -64,7 +60,7 @@ def process_metadata(patient_data_path, output_path):
         processed_row = np.append(processed_row, 1)
 
         #process age
-        procesed_row = np.append(processed_row, row_data[3])
+        processed_row = np.append(processed_row, row_data[3])
 
         #process gender
         gender = row_data[4]
@@ -100,13 +96,13 @@ def process_metadata(patient_data_path, output_path):
         processed_row = np.append(processed_row, smoking_packs)
 
         # process comorbities
-        comorbities = 0
+        comorbidities = 0
         if row_data[10] != 'n/a':
-            comorbities = 1
-        processed_row = np.append(processed_row, comorbities)
+            comorbidities = 1
+        processed_row = np.append(processed_row, comorbidities)
 
         #process BNP (metric which correlated with HF)
-        bnp = to_float(processed_row[11])
+        bnp = to_float(row_data[11])
         if not isinstance(bnp, float):
             bnp = DEFAULT_BNP
         processed_row = np.append(processed_row, bnp)
@@ -156,16 +152,16 @@ def process_metadata(patient_data_path, output_path):
 
         return processed_row
 
-    [rows, cols] = patient_data.shape
+    [rows, _] = patient_data.shape
 
     # Headers are unique to each metadata csv,
     # size must agree with patient_data cols
     headers = ['id', 'stay_length', 'age', 'male', 'female', 'height',
-     'weight', 'thorax_circ', 'smoking_packs', 'comorbities', 'bnp', 'temp',
-      'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow_1']
+     'weight', 'thorax_circ', 'smoking_packs', 'comorbidities', 'bnp', 'temp',
+      'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow']
 
     output_data = np.array([])
-    for row_index in range(3, rows):
+    for row_index in range(rows):
         next_row = process_row(row_index)
         if next_row.size != 0:
             if output_data.size == 0:

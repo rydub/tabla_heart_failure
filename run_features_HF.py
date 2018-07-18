@@ -9,10 +9,6 @@ import centroid
 import metadata_HF as metadata
 # sys.path.append('./essentia/src/python/essentia')
 
-"""
-TODO:   -
-"""
-
 # contains all subdirectories required for parsing
 study = 'HF'
 subdirectory = 'heart_failure'

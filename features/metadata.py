@@ -12,7 +12,7 @@ TODO:   - Change "Pneumonia Output" section
 def process_metadata(patient_data_path, output_path):
     """Data wrangler that turns clinician input into usable form"""
     if not patient_data_path:
-        print('missing patient data file paths')
+        print 'missing patient data file paths'
         sys.exit(-1)
 
     patient_data = pd.read_csv(patient_data_path).as_matrix()

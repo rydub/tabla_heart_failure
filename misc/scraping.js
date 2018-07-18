@@ -100,7 +100,7 @@ var scrapeAudio = function(patientId) {
       return "echo \"" + cmd.replace(/"/g, "\\\"") + "\" >> download.sh";    
     }
     var cmds = [
-      wrapCommand("cd ~/Desktop; rm download.sh; mkdir " + patientId + "; cd " + patientId),
+      wrapCommand("cd ~/Documents; rm download.sh; mkdir " + patientId + "; cd " + patientId),
       wrapCommand("mkdir BS; mkdir PS; mkdir TF;")
     ];
     for (var i = 0; i < recordings.length; i++) {
