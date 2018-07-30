@@ -14,7 +14,11 @@ def process_metadata(patient_data_path, output_path):
         print('missing patient data file paths')
         sys.exit(-1)
 
-    patient_data = pd.read_csv(patient_data_path).as_matrix()
+    patient_data_df = pd.read_csv(patient_data_path)
+    admission_series = pd.to_datetime(patient_data_df['Admission Date'], infer_datetime_format=True)
+    discharge_series = pd.to_datetime(patient_data_df['Discharge Date'], infer_datetime_format=True)
+
+    patient_data = patient_data_df.as_matrix()
     DEFAULT_SMOKING_PACKS = 0
     DEFAULT_TEMP = 98.6
     DEFAULT_BP_SYSTOLIC = 130
@@ -46,18 +50,13 @@ def process_metadata(patient_data_path, output_path):
         # return [] if bad data, empty rows are ignored by parent
         if pat_id in KNOWN_BAD_IDS:
             return processed_row
-
         processed_row = np.append(processed_row, pat_id)
-        # Process length of stay
 
-        # DOES NOT WORK
-        # admis_df = pd.DataFrame(np.array(row_data[1]))
-        # admis_df = pd.to_datetime(admis_df, format='%d/%b/%Y')
-        # disch_df = pd.DataFrame(np.array(row_data[2]))
-        # disch_df = pd.to_datetime(disch_df, format='%d/%b/%Y')
-        # term = (disch_df - admis_df).days
-        # processed_row = np.append(processed_row, term)
-        processed_row = np.append(processed_row, 1)
+        # Process length of stay, if no discharge_date value is NaN
+        term = (discharge_series[index] - admission_series[index]).days
+
+        processed_row = np.append(processed_row, admission_series[index])
+        processed_row = np.append(processed_row, term)
 
         #process age
         processed_row = np.append(processed_row, row_data[3])
@@ -156,7 +155,7 @@ def process_metadata(patient_data_path, output_path):
 
     # Headers are unique to each metadata csv,
     # size must agree with patient_data cols
-    headers = ['id', 'stay_length', 'age', 'male', 'female', 'height',
+    headers = ['id', 'admission_date', 'stay_length', 'age', 'male', 'female', 'height',
      'weight', 'thorax_circ', 'smoking_packs', 'comorbidities', 'bnp', 'temp',
       'bp_systolic', 'bp_diastolic', 'hr', 'rr', 'sp02','peak_flow']
 
