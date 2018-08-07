@@ -64,7 +64,7 @@ i = 1
 for feature in features:
     [x, y] = zip(*catalogue[feature])
     x = np.array(x).reshape(-1, 1)
-    y = np.array(y)  # .reshape(1, -1)
+    y = np.array(y)
     regr = linear_model.LinearRegression()
     regr.fit(x, y)
     plt.figure(i)
