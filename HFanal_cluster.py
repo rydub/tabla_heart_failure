@@ -20,6 +20,13 @@ def normalize(df):
     return result
 
 
+def _extract_record_names(df, pat):
+    """extract and return a list of the dated record IDs for a patient ID"""
+    records = pd.Series(df.index.tolist())
+    expr = r'({}.*)'.format(pat)
+    return records.str.extractall(expr)[0].tolist()
+
+
 # paths for required data
 metadata_path = 'features/metadata_HF.csv'
 audio_features_path = 'features/audio_features_HF.csv'
@@ -36,6 +43,11 @@ recordings = pd.read_csv(recordings_path, index_col=0)
 # normalize features
 norm_features = normalize(audio_features)
 
+# merge datetime to features, generate date series
+dates = recordings['Date of Recordings']
+norm_features = norm_features.merge(pd.DataFrame(dates), left_index=True, right_index=True)
+date_series = pd.to_datetime(norm_features['Date of Recordings'], infer_datetime_format=True)
+
 # colormap for distinct color in visuals
 colormap = [
         "FF0000", "00FF00", "0000FF", "FFFF00", "FF00FF", "00FFFF", "000000",
@@ -48,34 +60,42 @@ colormap = [
         "E00000", "00E000", "0000E0", "E0E000", "E000E0", "00E0E0", "E0E0E0",
         ]
 
+pat_full_idx = ['HF001', 'HF002', 'HF003', 'HF004', 'HF005', 'HF006', 'HF007', 'HF008', 'HF009',
+                'HF010', 'HF011', 'HF012', 'HF013', 'HF015', 'HF016', 'HF017', 'HF018', ]
+pat_interest_idx = ['HF001', 'HF009', 'HF018']
+mfcc_idx = list(norm_features)[:-1]
 
-# TEST: 1D analysis spreads coefficients along a unit vector
-# plt.figure(1)
-# legend = []
-# for pat, clr in zip(norm_features.index, colormap):
-#     data = norm_features.loc[pat].tolist()
-#     plt.scatter(data, np.zeros(len(data)), color='#{}'.format(clr))
-#     legend.append(pat)
-# plt.legend(legend, ncol=3)
-# plt.show()
+# visit dict maps ID to record IDs and num days since admission for each measurement. Ex: {ID: (ID_MMDDYY, list)}
+visit_dict = {}
+for pat in pat_interest_idx:
+    record_ids = _extract_record_names(norm_features, pat)
+    base_date = date_series[record_ids[0]]
+    num_days = []
+    for entry in record_ids:
+        num_days.append(int((date_series[entry] - base_date).days))
+    visit_dict[pat] = (record_ids, num_days)
 
-# Cluster Analysis: per MFCC variance over time vs. variance across patients
-mfcc_idx = list(norm_features)
-pat_idx = ['HF001', 'HF002', 'HF003', 'HF004', 'HF005', 'HF006', 'HF007', 'HF008', 'HF009',
-           'HF010', 'HF011', 'HF012', 'HF013', 'HF014', 'HF015', 'HF016', 'HF017', 'HF018', ]
 legend = []
 i = 1
-# iterate over each patient, generating a plot for each
-records = pd.Series(norm_features.index.tolist())
-for pat in pat_idx:
-    expr = r'({}.*)'.format(pat)
-    to_extract = records.str.extractall(expr)
-    print to_extract
-    for cur_mfcc in mfcc_idx:
-        fig = plt.figure(i)
-        this_pat_mfcc = [norm_features.loc[entry, cur_mfcc] for entry in list(to_extract)]
-        # for entry in to_extract.index[0].tolist():
-        #     to_plot.append(norm_features.loc[entry, mfcc_])
 
-        i += 1
-        plt.close(fig)
+# Examine trend across days of visit between patients with valid time series
+for feature in mfcc_idx:
+    fig = plt.figure(i)
+    lgd = pat_interest_idx[:]
+    for pat in pat_interest_idx:
+        y_vals = []
+        for record in visit_dict[pat][0]:
+            y_vals.append(audio_features.loc[record, feature])
+        plt.plot(visit_dict[pat][1], y_vals)
+        plt.scatter(visit_dict[pat][1], y_vals, marker='.')
+    plt.title('{}: (normalized) value over time'.format(feature))
+    plt.xlabel('Days since admission')
+    plt.legend(lgd)
+
+    # save results
+    # plt.savefig('HF_results/figures/{}_overtime'.format(feature), format='png')
+    # plt.close(fig)
+    i += 1
+
+# show results
+plt.show()
