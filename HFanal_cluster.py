@@ -62,7 +62,7 @@ colormap = [
 
 pat_full_idx = ['HF001', 'HF002', 'HF003', 'HF004', 'HF005', 'HF006', 'HF007', 'HF008', 'HF009',
                 'HF010', 'HF011', 'HF012', 'HF013', 'HF015', 'HF016', 'HF017', 'HF018', ]
-pat_interest_idx = ['HF001', 'HF009', 'HF018']
+pat_interest_idx = ['HF001', 'HF002', 'HF006', 'HF009', 'HF013', 'HF018']
 mfcc_idx = list(norm_features)[:-1]
 
 # visit dict maps ID to record IDs and num days since admission for each measurement. Ex: {ID: (ID_MMDDYY, list)}
@@ -85,7 +85,7 @@ for feature in mfcc_idx:
     for pat in pat_interest_idx:
         y_vals = []
         for record in visit_dict[pat][0]:
-            y_vals.append(audio_features.loc[record, feature])
+            y_vals.append(norm_features.loc[record, feature])
         plt.plot(visit_dict[pat][1], y_vals)
         plt.scatter(visit_dict[pat][1], y_vals, marker='.')
     plt.title('{}: (normalized) value over time'.format(feature))
@@ -93,8 +93,8 @@ for feature in mfcc_idx:
     plt.legend(lgd)
 
     # save results
-    # plt.savefig('HF_results/figures/{}_overtime'.format(feature), format='png')
-    # plt.close(fig)
+    plt.savefig('HF_results/figures/{}_overtime_expanded.png'.format(feature), format='png')
+    plt.close(fig)
     i += 1
 
 # show results
