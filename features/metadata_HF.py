@@ -4,9 +4,6 @@ import sys
 import pandas as pd
 import numpy as np
 
-'''
-TODO:   - Devise date/time processing method
-'''
 
 def process_metadata(patient_data_path, output_path):
     """Data wrangler that turns research coordinator input into usable form"""

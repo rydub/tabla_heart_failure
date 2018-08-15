@@ -22,8 +22,6 @@ normalized_features_path = 'features/normalized_features_' + study + '.csv'
 # Use this to exempt patient_ids that have bad data
 bad_patient_ids = []
 
-metadata_cols = []
-
 def write_features(file, patient_id, patient_dir, create_header):
     """Calculates features (MFCCs, centroid) for a patient recording, writes to file (.csv)"""
     headers = ['id']
@@ -60,6 +58,8 @@ for patient_id in get_patient_ids('{}/{}'.format(in_root, subdirectory), study):
         write_features(file, record, '{}/{}'.format(records, record), create_header)
         if create_header:
             create_header=False
+
+file.close()
 
 # Process metadata
 metadata.process_metadata(metadata_path, metadata_features_path)
