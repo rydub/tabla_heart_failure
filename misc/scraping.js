@@ -97,17 +97,17 @@ var scrapeAudio = function(patientId) {
     }
 
     function wrapCommand(cmd) {
-      return "echo \"" + cmd.replace(/"/g, "\\\"") + "\" >> download.sh";    
+      return "echo \"" + cmd.replace(/"/g, "\\\"") + "\" >> ~/download.sh";    
     }
     var cmds = [
-      wrapCommand("cd ~/Documents; rm download.sh; mkdir " + patientId + "; cd " + patientId),
+      wrapCommand("rm ~/download.sh; cd ~/Documents; mkdir " + patientId + "; cd " + patientId),
       wrapCommand("mkdir BS; mkdir PS; mkdir TF;")
     ];
     for (var i = 0; i < recordings.length; i++) {
       cmds.push(wrapCommand(urlToCommand(i)));
     }
     cmds.push(wrapCommand("open ../"))
-    cmds.push("bash download.sh")
+    cmds.push("bash ~/download.sh")
     var script = cmds.join("\n") + "\n";
     
     console.log("Success! Open your terminal, and copy and paste the entire script below:");
