@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-from math import isnan
+import HFanal_basicstats as bs
 
 # style selector for pyplot
 # print(plt.style.available)
@@ -23,15 +23,12 @@ def normalize(df):
 metadata_path = 'features/metadata_HF.csv'
 audio_features_path = 'features/audio_features_HF.csv'
 recordings_path = 'features/recordings_HF.csv'
-expanded_features_path = 'features/audio_features_expanded_HF.csv'
 
 # record bad patient IDs
 bad_id = []
 
-# dataframes
-expanded_features = pd.read_csv(expanded_features_path)
-indices = expanded_features.columns.tolist()[:5]
-expanded_features.set_index(indices, inplace=True)
-exp_ps_features = expanded_features.sort_index().xs('PS', level=2)
+"""Correlation Studies for PS mfccs, panels compare each """
+intertrial_means = bs.intertrial_stats()
 
-"""Correlation Studies for mfccs, panels compare each feature to the other per location, per"""
+
+

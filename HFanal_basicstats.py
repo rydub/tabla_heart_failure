@@ -26,52 +26,68 @@ frame_index = ['mfcc00', 'mfcc01', 'mfcc02', 'mfcc03', 'mfcc04', 'mfcc05', 'mfcc
                'mfcc09', 'mfcc10', 'mfcc11']
 
 
-"""generate inter-patient statistics"""
-mfcc_means = audio_features.mean()
-mfcc_vars = audio_features.var()
-mfcc_meds = audio_features.median()
-mfcc_stds = audio_features.std()
-crosspatient_stats = pd.concat([mfcc_means, mfcc_meds, mfcc_vars, mfcc_stds], axis=1).T
-column_dict = dict(zip(audio_features.columns.tolist(), frame_index))
-crosspatient_stats.rename(index={0: 'mean', 1: 'med', 2: 'var', 3: 'std'}, columns=column_dict, inplace=True)
+def general_interpatient_stats():
+    """save a dataframe with inter-patient statistics"""
+    mfcc_means = audio_features.mean()
+    mfcc_vars = audio_features.var()
+    mfcc_meds = audio_features.median()
+    mfcc_stds = audio_features.std()
+    crosspatient_stats = pd.concat([mfcc_means, mfcc_meds, mfcc_vars, mfcc_stds], axis=1).T
+    column_dict = dict(zip(audio_features.columns.tolist(), frame_index))
+    crosspatient_stats.rename(index={0: 'mean', 1: 'med', 2: 'var', 3: 'std'}, columns=column_dict, inplace=True)
+    crosspatient_stats.to_csv('HF_results/gen_interpatient_stats.csv')
 
 
-"""general intra-patient stats"""
-intra_idx = pd.MultiIndex.from_product([pat_full_idx, frame_index], names=('patient ID', 'mfcc'))
-intrapatient_stats = pd.DataFrame(columns=['mean', 'med', 'var', 'std'], index=intra_idx)
-for pat in pat_full_idx:
-    record_ids = _extract_record_names(audio_features, pat)
-    intrapatient_stats['mean'][pat] = audio_features.loc[record_ids].mean()
-    intrapatient_stats['med'][pat] = audio_features.loc[record_ids].var()
-    intrapatient_stats['var'][pat] = audio_features.loc[record_ids].median()
-    intrapatient_stats['std'][pat] = audio_features.loc[record_ids].std()
+def general_intrapatient_stats():
+    """save a dataframe with general intra-patient stats"""
+    intra_idx = pd.MultiIndex.from_product([pat_full_idx, frame_index], names=('patient ID', 'mfcc'))
+    intrapatient_stats = pd.DataFrame(columns=['mean', 'med', 'var', 'std'], index=intra_idx)
+    for pat in pat_full_idx:
+        record_ids = _extract_record_names(audio_features, pat)
+        intrapatient_stats['mean'][pat] = audio_features.loc[record_ids].mean()
+        intrapatient_stats['med'][pat] = audio_features.loc[record_ids].var()
+        intrapatient_stats['var'][pat] = audio_features.loc[record_ids].median()
+        intrapatient_stats['std'][pat] = audio_features.loc[record_ids].std()
+    intrapatient_stats.to_csv('HF_results/gen_intrapatient_stats.csv')
 
 
 """stats from the new expanded feature set"""
+# all current work comes from the below sets
 
 
-"""inter-trial stats"""
-names = exp_ps_features.index.names
-trial_means = exp_ps_features.mean(level=names[:-1])
-trial_var = exp_ps_features.var(level=names[:-1])
-trial_med = exp_ps_features.median(level=names[:-1])
-trial_std = exp_ps_features.std(level=names[:-1])
+def intertrial_stats():
+    """return dataframes with inter-trial stats for PS features"""
+    names = exp_ps_features.index.names
+    trial_means = exp_ps_features.mean(level=names[:-1])
+    trial_var = exp_ps_features.var(level=names[:-1])
+    trial_med = exp_ps_features.median(level=names[:-1])
+    trial_std = exp_ps_features.std(level=names[:-1])
+    return trial_means, trial_var, trial_med, trial_std
 
 
-"""trial-meaned intra-patient stats by locality"""
-reordered = trial_means.reorder_levels(['patient_id', 'localization', 'date'])
-loc_mean = reordered.mean(level=['patient_id', 'localization'])
-loc_var = reordered.var(level=['patient_id', 'localization'])
-loc_med = reordered.median(level=['patient_id', 'localization'])
-loc_std = reordered.std(level=['patient_id', 'localization'])
+def localized_intrapatient_stats():
+    """return dataframes with trial-meaned intra-patient stats by locality for PS features"""
+    trial_means, _, _, _ = intertrial_stats()
+    reordered = trial_means.reorder_levels(['patient_id', 'localization', 'date'])
+    loc_mean = reordered.mean(level=['patient_id', 'localization'])
+    loc_var = reordered.var(level=['patient_id', 'localization'])
+    loc_med = reordered.median(level=['patient_id', 'localization'])
+    loc_std = reordered.std(level=['patient_id', 'localization'])
+    return loc_mean, loc_var, loc_med, loc_std
 
 
-""""""
+if __name__ == "__main__":
+    general_interpatient_stats()
+    general_intrapatient_stats()
 
+    mean, var, med, std = intertrial_stats()
+    mean.to_csv('HF_results/intertrial_means.csv')
+    var.to_csv('HF_results/intertrial_variance.csv')
+    med.to_csv('HF_results/intertrial_medians.csv')
+    std.to_csv('HF_results/intertrial_stds.csv')
 
-"""print or save results"""
-crosspatient_stats.to_csv('HF_results/inter_patient_stats.csv')
-intrapatient_stats.to_csv('HF_results/intra_patient_stats.csv')
-
-# print crosspatient_stats
-# print intrapatient_stats
+    mean2, var2, med2, std2 = localized_intrapatient_stats()
+    mean2.to_csv('HF_results/localized_intrapatient_means.csv')
+    var2.to_csv('HF_results/localized_intrapatient_variance.csv')
+    med2.to_csv('HF_results/localized_intrapatient_medians.csv')
+    std2.to_csv('HF_results/localized_intrapatient_stds.csv')
