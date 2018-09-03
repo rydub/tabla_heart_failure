@@ -1,6 +1,6 @@
 import pandas as pd
 import matplotlib.pyplot as plt
-import HFanal_basicstats as bs
+import HFanal_basicstats as stats
 
 # style selector for pyplot
 # print(plt.style.available)
@@ -28,7 +28,7 @@ recordings_path = 'features/recordings_HF.csv'
 bad_id = []
 
 """Correlation Studies for PS mfccs, panels compare each """
-intertrial_means = bs.intertrial_stats()
+intertrial_means = stats.intertrial_stats()
 
 
 
