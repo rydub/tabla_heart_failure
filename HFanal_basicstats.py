@@ -56,7 +56,7 @@ def general_intrapatient_stats():
 
 
 def intertrial_stats():
-    """return dataframes with inter-trial stats for PS features"""
+    """return multi index dataframes with inter-trial stats for PS features"""
     names = exp_ps_features.index.names
     trial_means = exp_ps_features.mean(level=names[:-1])
     trial_var = exp_ps_features.var(level=names[:-1])
