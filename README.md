@@ -14,7 +14,7 @@ http://essentia.upf.edu/documentation/installing.html
 
 ### Processing Audio Files:
 
-To process raw data, place the patient directory in "raw_audio" directory. From the root of the repository run:
+To process raw data, place the patient directory in "raw_data" directory. From the root of the repository run:
 `python process_audio.py`
 
 To extract features from the dataset and process patient metadata run either or both of:
