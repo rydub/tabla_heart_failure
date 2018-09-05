@@ -11,7 +11,7 @@ recordings = get_patient_recordings()
 
 
 """Select a patient id and plot fluid overload vs. feature for each location"""
-patient_id = 'HF001'
+patient_id = 'HF009'
 
 pat_features = features.loc[patient_id]
 # swap level for location-based access, dates are sorted
@@ -33,13 +33,13 @@ for feature in pat_features.columns.tolist():
     plt.ylabel('Feature Value')
 
 # save results
-    if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
-        if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
-            os.mkdir('HF_results/figures/feature_v_fluidover/')
-        os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
-    plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
-                format='png')
-    plt.close()
+#     if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
+#         if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
+#             os.mkdir('HF_results/figures/feature_v_fluidover/')
+#         os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
+#     plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
+#                 format='png')
+#     plt.close()
     i += 1
 
 plt.show()

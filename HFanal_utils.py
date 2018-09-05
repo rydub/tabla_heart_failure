@@ -50,10 +50,12 @@ def get_pat_idx():
 
 
 def _extract_record_names(df, pat):
-    """extract and return a list of the dated record IDs for a patient ID"""
+    """extract and return a list of the dated record IDs for a patient ID sorted by increasing date"""
     records = pd.Series(df.index.tolist())
     expr = r'({}.*)'.format(pat)
-    return records.str.extractall(expr)[0].tolist()
+    ret = records.str.extractall(expr)[0].tolist()
+    ret.sort()
+    return ret
 
 
 def get_patient_recordings():
