@@ -20,55 +20,55 @@ locations = pat_features.index.levels[0].tolist()
 
 
 """plot fluid overload vs. feature for each location"""
-i = 1
-for feature in pat_features.columns.tolist():
-    fig = plt.figure(i)
-    lgd = []
-    for area in locations:
-        feature_vals = pat_features[feature].loc[area].tolist()
-        plt.plot(fluids, feature_vals)
-        lgd.append(area)
-    plt.legend(lgd)
-    plt.title('{} as a Function of Fluid Accumulation: {}'.format(feature, patient_id))
-    plt.xlabel('Fluid Overload (mL)')
-    plt.ylabel('Feature Value')
-    i += 1
-
-    # save results
-    if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
-        if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
-            os.mkdir('HF_results/figures/feature_v_fluidover/')
-        os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
-    plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
-                format='png')
-    plt.close()
-
-
-plt.show()
-
-
-"""plot fluid overload vs. location for each feature"""
 # i = 1
-# for area in locations:
+# for feature in pat_features.columns.tolist():
 #     fig = plt.figure(i)
 #     lgd = []
-#     for feature in pat_features.columns.tolist()[:-1]:  # slice removes centroid
-#         feature_vals = pat_features.loc[area][feature].tolist()
+#     for area in locations:
+#         feature_vals = pat_features[feature].loc[area].tolist()
 #         plt.plot(fluids, feature_vals)
-#         lgd.append(feature)
+#         lgd.append(area)
 #     plt.legend(lgd)
-#     plt.title('Feature value as a function of Fluid Accumulation For {} Area: {}'.format(area, patient_id))
+#     plt.title('{} as a Function of Fluid Accumulation: {}'.format(feature, patient_id))
 #     plt.xlabel('Fluid Overload (mL)')
-#     plt.ylabel('Feature Value (normalized)')
+#     plt.ylabel('Feature Value')
 #     i += 1
 #
 #     # save results
-#     if not os.path.exists('HF_results/figures/feature_v_fluidover_byloc/{}/'.format(patient_id)):
-#         if not os.path.exists('HF_results/figures/feature_v_fluidover_byloc/'):
-#             os.mkdir('HF_results/figures/feature_v_fluidover_byloc/')
-#         os.mkdir('HF_results/figures/feature_v_fluidover_byloc/{}'.format(patient_id))
-#     plt.savefig('HF_results/figures/feature_v_fluidover_byloc/{}/{}_{}_feat_v_fluid_byloc.png'.format(patient_id, patient_id, feature),
+#     if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
+#         if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
+#             os.mkdir('HF_results/figures/feature_v_fluidover/')
+#         os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
+#     plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
 #                 format='png')
 #     plt.close()
 #
+#
+# plt.show()
+
+
+"""plot fluid overload vs. location for each feature"""
+i = 1
+for area in locations:
+    fig = plt.figure(i)
+    lgd = []
+    for feature in pat_features.columns.tolist()[:-1]:  # slice removes centroid
+        feature_vals = pat_features.loc[area][feature].tolist()
+        plt.plot(fluids, feature_vals)
+        lgd.append(feature)
+    plt.legend(lgd)
+    plt.title('Feature value as a function of Fluid Accumulation For {} Area: {}'.format(area, patient_id))
+    plt.xlabel('Fluid Overload (mL)')
+    plt.ylabel('Feature Value (normalized)')
+    i += 1
+
+    # save results
+    if not os.path.exists('HF_results/figures/feature_v_fluidover_byloc/{}/'.format(patient_id)):
+        if not os.path.exists('HF_results/figures/feature_v_fluidover_byloc/'):
+            os.mkdir('HF_results/figures/feature_v_fluidover_byloc/')
+        os.mkdir('HF_results/figures/feature_v_fluidover_byloc/{}'.format(patient_id))
+    plt.savefig('HF_results/figures/feature_v_fluidover_byloc/{}/{}_{}_feat_v_fluid_byloc_{}.png'.format(patient_id,
+                patient_id, feature, area), format='png')
+    plt.close()
+
 # plt.show()
