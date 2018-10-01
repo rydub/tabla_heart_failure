@@ -20,7 +20,7 @@ def audio_to_spectrum(patient, date, location):
     '''function to convert audio file .wav format to spectrum frequencies, magnitudes'''
     
     folder = '/home/yashasaxena/Repositories/tabla_heart_failure/raw_data/heart_failure/'
-    folder = folder + patient + '/' + patient + '_' + date + '/PS/'
+    folder = folder + patient + '/' + patient + '_' + date + '/PS'
     fileName = 'PS_' + location + '_1'
     sampFreq, snd = wav.read(folder + "/" + fileName + '.wav')
     
