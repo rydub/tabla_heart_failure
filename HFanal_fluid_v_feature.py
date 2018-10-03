@@ -20,35 +20,35 @@ locations = pat_features.index.levels[0].tolist()
 
 
 """plot fluid overload vs. feature for each location"""
-# i = 1
-# for feature in pat_features.columns.tolist():
-#     fig = plt.figure(i)
-#     lgd = []
-#     for area in locations:
-#         feature_vals = pat_features[feature].loc[area].tolist()
-#         plt.plot(fluids, feature_vals)
-#         lgd.append(area)
-#     plt.legend(lgd)
-#     plt.title('{} as a Function of Fluid Accumulation: {}'.format(feature, patient_id))
-#     plt.xlabel('Fluid Overload (mL)')
-#     plt.ylabel('Feature Value')
-#     i += 1
-#
-#     # save results
-#     if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
-#         if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
-#             os.mkdir('HF_results/figures/feature_v_fluidover/')
-#         os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
-#     plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
-#                 format='png')
-#     plt.close()
-#
-#
-# plt.show()
+ i = 1
+ for feature in pat_features.columns.tolist():
+     fig = plt.figure(i)
+     lgd = []
+     for area in locations:
+         feature_vals = pat_features[feature].loc[area].tolist()
+         plt.plot(fluids, feature_vals)
+         lgd.append(area)
+     plt.legend(lgd)
+     plt.title('{} as a Function of Fluid Accumulation: {}'.format(feature, patient_id))
+     plt.xlabel('Fluid Overload (mL)')
+     plt.ylabel('Feature Value')
+     i += 1
+
+     # save results
+     if not os.path.exists('HF_results/figures/feature_v_fluidover/{}/'.format(patient_id)):
+         if not os.path.exists('HF_results/figures/feature_v_fluidover/'):
+             os.mkdir('HF_results/figures/feature_v_fluidover/')
+         os.mkdir('HF_results/figures/feature_v_fluidover/{}'.format(patient_id))
+     plt.savefig('HF_results/figures/feature_v_fluidover/{}/{}_{}_v_fluid.png'.format(patient_id, patient_id,  feature),
+                 format='png')
+     plt.close()
+
+
+ plt.show()
 
 
 """plot fluid overload vs. location for each feature"""
-i = 1
+==i = 1
 for area in locations:
     fig = plt.figure(i)
     lgd = []

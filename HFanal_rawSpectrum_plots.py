@@ -12,10 +12,10 @@ from audio_processing_util import *
 
 '''Set Parameters'''
 #location
-location = 'RUL'
+location = 'LUL'
 #patient, (HF001, HF002, HF004) & patient dates 
 features = get_localized_features()
-patient = 'HF004'
+patient = 'HF003'
 dates = features.loc[patient].groupby('date').max() 
 dates = dates.index.values
 fluids = get_fluid_list(patient)
