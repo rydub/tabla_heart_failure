@@ -46,9 +46,21 @@ for patient in patients:
         try:
             #data
             date_mod = '0'+str(dates[min_fluid_ind])
-            spectrum_data_min = audio_to_spectrum(patient,date_mod,location)
-            freqs_min = spectrum_data_min[0]
-            mags_min = spectrum_data_min[1]*t_c
+            #collect spectra from all 3 audio files 
+            spectrum_data_min_1 = audio_to_spectrum(patient,date_mod,location, 1)
+            spectrum_data_min_2 = audio_to_spectrum(patient,date_mod,location, 2)
+            spectrum_data_min_3 = audio_to_spectrum(patient,date_mod,location, 3)
+            freqs_min = [] 
+            mags_min = []
+            freqs_min.append(spectrum_data_min_1[0])
+            freqs_min.append(spectrum_data_min_2[0])
+            freqs_min.append(spectrum_data_min_3[0])
+            freqs_min = np.mean(freqs_min, axis=0)
+            
+            mags_min.append(spectrum_data_min_1[1])
+            mags_min.append(spectrum_data_min_2[1])
+            mags_min.append(spectrum_data_min_3[1])
+            mags_min = np.mean(mags_min, axis=0)*t_c
             #append to master arrays
             freqs_min_all.append(freqs_min)
             mags_min_all.append(mags_min)
@@ -61,9 +73,20 @@ for patient in patients:
         try:
             #data
             date_mod = '0'+str(dates[max_fluid_ind])
-            spectrum_data_max = audio_to_spectrum(patient,date_mod,location)
-            freqs_max = spectrum_data_max[0]
-            mags_max = spectrum_data_max[1]*t_c
+            spectrum_data_max_1 = audio_to_spectrum(patient,date_mod,location, 1)
+            spectrum_data_max_2 = audio_to_spectrum(patient,date_mod,location, 2)
+            spectrum_data_max_3 = audio_to_spectrum(patient,date_mod,location, 3)
+            freqs_max = []
+            mags_max = []
+            freqs_max.append(spectrum_data_max_1[0])
+            freqs_max.append(spectrum_data_max_2[0])
+            freqs_max.append(spectrum_data_max_3[0])
+            freqs_max = np.mean(freqs_max, axis=0)
+            
+            mags_max.append(spectrum_data_max_1[1])
+            mags_max.append(spectrum_data_max_2[1])
+            mags_max.append(spectrum_data_max_3[1])
+            mags_max = np.mean(mags_max, axis=0)
             #append to master arrays
             freqs_max_all.append(freqs_max)
             mags_max_all.append(mags_max)      
@@ -82,5 +105,5 @@ plt.legend(bbox_to_anchor=(1.05, 1), loc=2, borderaxespad=0.)
 plt.xlabel('Frequency (Hz)')
 plt.ylabel('Magnitude (dB)')
 plt.xlim(0,1000)
-plt.ylim(-20,100)
+plt.ylim(-20,200)
 plt.show()

@@ -16,12 +16,12 @@ from scipy import signal
 from scipy.io.wavfile import write
 from pydub import AudioSegment
 
-def audio_to_spectrum(patient, date, location):    
+def audio_to_spectrum(patient, date, location, file_num):    
     '''function to convert audio file .wav format to spectrum frequencies, magnitudes'''
     
     folder = '/home/yashasaxena/Repositories/tabla_heart_failure/raw_data/heart_failure/'
     folder = folder + patient + '/' + patient + '_' + date + '/PS'
-    fileName = 'PS_' + location + '_1'
+    fileName = 'PS_' + location + '_' + str(file_num)
     sampFreq, snd = wav.read(folder + "/" + fileName + '.wav')
     
 #    folder2 = '/home/yashasaxena/Repositories/tabla_heart_failure/\
