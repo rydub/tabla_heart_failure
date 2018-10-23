@@ -89,6 +89,8 @@ var scrapeAudio = function(patientId) {
       }
       for (var j = i + 1; j < recordings.length; j++) {
         if (urls[i] === urls[j]) {
+          console.log(urls[i]);
+          console.log(urls[j]);
           console.log("FAILURE! Duplicate urls found for " + recordings[i] + " and " + recordings[j]);
           console.log("index: " + i + " and " + j);
           return
@@ -97,7 +99,7 @@ var scrapeAudio = function(patientId) {
     }
 
     function wrapCommand(cmd) {
-      return "echo \"" + cmd.replace(/"/g, "\\\"") + "\" >> ~/download.sh";    
+      return "echo \"" + cmd.replace(/"/g, "\\\"") + "\" >> ~/download.sh";
     }
     var cmds = [
       wrapCommand("rm ~/download.sh; cd ~/Documents; mkdir " + patientId + "; cd " + patientId),
@@ -109,7 +111,7 @@ var scrapeAudio = function(patientId) {
     cmds.push(wrapCommand("open ../"))
     cmds.push("bash ~/download.sh")
     var script = cmds.join("\n") + "\n";
-    
+
     console.log("Success! Open your terminal, and copy and paste the entire script below:");
     console.log(script);
   }
