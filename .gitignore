@@ -4,6 +4,7 @@
 *.DS_Store
 *.o
 tabla_nn_model
+*.wav
 /venv/**
 .idea
 .~lock**
